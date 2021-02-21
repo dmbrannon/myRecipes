@@ -1,15 +1,22 @@
 from django.db import models
 from django.utils import timezone
 
+class Ingredient(models.Model):
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name
+
 class Recipe(models.Model):
-    title = models.CharField(max_length=100)
-    source = models.CharField(max_length=200)
+    title = models.CharField(max_length=128)
+    source = models.CharField(max_length=256)
     steps = models.TextField()
     tries = models.IntegerField(default=0)
     icon = models.ForeignKey(
         'Icon',
         on_delete=models.CASCADE,
     )
+    ingredients = models.ManyToManyField(Ingredient, through='Measurement')
 
     class Meta:
         ordering = ['title']
@@ -17,17 +24,14 @@ class Recipe(models.Model):
     def __str__(self):
         return self.title
 
-class Ingredient(models.Model):
-    name = models.CharField(max_length=50)
-    recipe = models.ManyToManyField(Recipe)
+class Measurement(models.Model):
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    qty = models.CharField(max_length=64)
+    unit = models.CharField(max_length=64)
 
-class MeasurementUnit(models.Model):
-    name = models.CharField(max_length=50)
-    recipe = models.ManyToManyField(Recipe)
-
-class MeasurementQty(models.Model):
-    amount = models.CharField(max_length=50)
-    recipe = models.ManyToManyField(Recipe)
+    def __str__(self):
+        return f"{self.qty} {self.unit} {self.ingredient} for {self.recipe}"
 
 class Note(models.Model):
     text = models.TextField()
@@ -39,5 +43,5 @@ class Note(models.Model):
     date_modified = models.DateField(auto_now=True)
 
 class Icon(models.Model):
-    code = models.CharField(max_length=10)
+    code = models.CharField(max_length=8)
 
