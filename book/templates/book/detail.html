@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+  </head>
+  <body>
+    <h1>{{ recipe.title }}</h1>
+    <ol>
+		{% for step in steps %}
+		  <li> {{ step }} </li>
+    {% endfor %}
+    </ol>
+  </body>
+</html>
