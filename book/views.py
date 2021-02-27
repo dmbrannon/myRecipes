@@ -15,6 +15,17 @@ def index(request):
     #return HttpResponse(template.render(context, request))
     return render(request, 'book/index.html', context) # returns an HttpR with rendered template and context
 
+def search(request):
+    alpha_recipe_list = Recipe.objects.order_by('title')[:5]
+    # output = ', '.join([r.steps for r in alpha_recipe_list])
+    # return HttpResponse(output)
+    # template = loader.get_template('book/index.html')
+    context = {
+        'alpha_recipe_list': alpha_recipe_list,
+    }
+    #return HttpResponse(template.render(context, request))
+    return render(request, 'book/search.html', context)
+
 def detail(request, recipe_id):
     '''try:
         recipe = Recipe.objects.get(pk=recipe_id)

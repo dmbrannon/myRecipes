@@ -5,16 +5,7 @@
     <title>My test page</title>
   </head>
   <body>
-    {% if error_message %}
-        <p><strong>{{ error_message }}</strong></p>
-    {% endif %}
-
-    <form action="{% url 'book:search' %}" method="post">
-        {% csrf_token %}
-        <input type="text" placeholder="Search by name..." autocomplete="off" spellcheck="true">
-        <input type="submit" value="Search">
-    </form>
-
+    <h1>Search Results</h1>
     {% if alpha_recipe_list %}
         <ul>
         {% for recipe in alpha_recipe_list %}
