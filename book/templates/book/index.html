@@ -9,9 +9,8 @@
         <p><strong>{{ error_message }}</strong></p>
     {% endif %}
 
-    <form action="{% url 'book:search' %}" method="post">
-        {% csrf_token %}
-        <input type="text" placeholder="Search by name..." autocomplete="off" spellcheck="true">
+    <form action="{% url 'book:search' %}" method="get">
+        <input type="text" name="ingredient_name" placeholder="Search by name..." autocomplete="off" spellcheck="true">
         <input type="submit" value="Search">
     </form>
 

@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.http import HttpResponse, HttpResponseRedirect
+from django.views.generic import ListView
 # from django.template import loader
+from django.urls import reverse
 
-from .models import Recipe
+from .models import Recipe, Ingredient
 
 def index(request):
     alpha_recipe_list = Recipe.objects.order_by('title')[:5]
@@ -15,7 +17,42 @@ def index(request):
     #return HttpResponse(template.render(context, request))
     return render(request, 'book/index.html', context) # returns an HttpR with rendered template and context
 
+class SearchResultsView(ListView):
+    model = Ingredient
+    template_name = 'book/search.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(SearchResultsView, self).get_context_data(**kwargs)
+        context['ingredient_name'] = self.request.GET['ingredient_name']
+        return context
+    
+    def get_queryset(self):
+        ingredient_name = self.request.GET['ingredient_name']
+        #ingredient = Ingredient.objects.filter(name=ingredient_name)
+        recipe_list = Recipe.objects.filter(ingredients__name=ingredient_name)
+        return recipe_list
+
 def search(request):
+    # ingredient = get_object_or_404(Question, pk=question_id)
+    try:
+        ingredient_name = request.POST['ingredient_name']
+        ingredient = Ingredient.objects.get(name=ingredient_name)
+        get_list_or_404(ingredient.recipe_set) #title='Matilda')
+    except (KeyError, Ingredient.DoesNotExist):
+        # Redisplay the search page.
+        return render(request, 'book/index.html', {
+            'error_message': "That ingredient didn't exist.",
+        })
+    else:
+        #selected_choice.votes += 1
+        #selected_choice.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+        return HttpResponseRedirect(reverse('book:search', args=(question.id,)))
+
+
+
     alpha_recipe_list = Recipe.objects.order_by('title')[:5]
     # output = ', '.join([r.steps for r in alpha_recipe_list])
     # return HttpResponse(output)

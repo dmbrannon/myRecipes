@@ -1,4 +1,6 @@
 from django.urls import path
+from book.views import SearchResultsView
+
 from . import views
 
 # set the application namespace (helps if we have lots of apps in the future)
@@ -8,7 +10,7 @@ urlpatterns = [
     # ex: /book/
     path('', views.index, name='index'),
     # ex: /book/search
-    path('search/', views.search, name='search'),
+    path('search/', SearchResultsView.as_view(), name='search'),
     # ex: /book/5
     path('<int:recipe_id>/', views.detail, name='detail'),
 ]
