@@ -3,11 +3,20 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView
 # from django.template import loader
 from django.urls import reverse
+from django.views import generic
 
 from .models import Recipe, Ingredient
 
+class IndexView(generic.ListView):
+    template_name = 'book/index.html'
+    context_object_name = 'alpha_recipe_list'
+
+    def get_queryset(self):
+        """Return all recipes in alpha order."""
+        return Recipe.objects.order_by('title')
+
 def index(request):
-    alpha_recipe_list = Recipe.objects.order_by('title')[:5]
+    alpha_recipe_list = Recipe.objects.order_by('title')
     # output = ', '.join([r.steps for r in alpha_recipe_list])
     # return HttpResponse(output)
     # template = loader.get_template('book/index.html')
