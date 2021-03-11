@@ -33,12 +33,13 @@ class SearchResultsView(ListView):
     def get_context_data(self, **kwargs):
         context = super(SearchResultsView, self).get_context_data(**kwargs)
         context['ingredient_name'] = self.request.GET['ingredient_name']
+        context['num_recipes'] = context['recipe_list'].count()
         return context
     
     def get_queryset(self):
         ingredient_name = self.request.GET['ingredient_name']
         #ingredient = Ingredient.objects.filter(name=ingredient_name)
-        recipe_list = Recipe.objects.filter(ingredients__name=ingredient_name)
+        recipe_list = Recipe.objects.filter(ingredients__name=ingredient_name).order_by('title')
         return recipe_list
 
 def search(request):
@@ -66,8 +67,10 @@ def search(request):
     # output = ', '.join([r.steps for r in alpha_recipe_list])
     # return HttpResponse(output)
     # template = loader.get_template('book/index.html')
+    print("COUNT: ", + alpha_recipe_list.count())
     context = {
         'alpha_recipe_list': alpha_recipe_list,
+        'num_ingredients': alpha_recipe_list.count(),
     }
     #return HttpResponse(template.render(context, request))
     return render(request, 'book/search.html', context)

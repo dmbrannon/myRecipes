@@ -1,18 +1,49 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>My test page</title>
-  </head>
-  <body>
-    <h1>Search Results</h1>
-    <p>Showing recipes that contain: {{ ingredient_name }}</p>
-    <ul>
-      {% for recipe in recipe_list %}
-        <li>
-          {{ recipe.title }}
-        </li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends "book/base.html" %}
+{% block main %}
+  <section class="jumbotron text-center">
+    <div class="container">
+        <h2 class="jumbotron-heading">Search Results</h2>
+            <div class="search mb-4"> 
+                <form>
+                    <input type="text" class="search-ingredient-input" id="search-ingredient-input" placeholder="Ex: carrot, onion, peas" name="" aria-label="Search for..." autocomplete="off" spellcheck="true">
+                    <a href="#" class="search-icon" id="search-icon" style="background-color: #28a745;">
+                        <i class="fa fa-search"></i>
+                    </a>
+                </form>
+            </div>
+            <p>
+                <b>{{ num_recipes }} recipe(s)</b> have the following ingredient:
+                <h3>
+                    <span class="badge badge-success mr-1">{{ ingredient_name }}</span>
+                </h3>
+            </p>
+    </div>
+  </section>
+
+  <div class="album py-5" id="backgroundColor">
+    <div class="container">
+      <div class="row" id="recipeRow">
+        {% if recipe_list %}
+          {% for recipe in recipe_list %}
+            <div class="col-lg-12">
+              <div class="card mb-4 box-shadow">
+                <a href="#">
+                  <div class="card-body">
+                      <div class="mr-3" style="font-size:20px;float:left">&#128031</div>
+                      <span style="font-size:1.25em">{{ recipe.title }}</span>
+                      <small class="text-muted float-right mt-2 mb-2">&#11088 1</small> 
+                  </div>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+        <div class="col-lg-12">
+          <h1 id="sorryText" style="color:white; font-weight:700; text-align:center; padding:5rem">No recipes match your search :( </h1>  
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
