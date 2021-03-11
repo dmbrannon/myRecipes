@@ -78,6 +78,8 @@ def detail(request, recipe_id):
     except Recipe.DoesNotExist:
         raise Http404("Recipe does not exist.")'''
     recipe = get_object_or_404(Recipe, pk=recipe_id)
+    ingredients_list = recipe.ingredients.through.objects.all()
+
     
     # Steps looks like "Boil Water.  Set oven to 450.  Chop all vegetables."
     steps = recipe.steps
@@ -85,6 +87,7 @@ def detail(request, recipe_id):
     context = {
         'recipe': recipe,
         'steps': steps_listed,
+        'ingredients': ingredients_list,
     }
     
     return render(request, 'book/detail.html', context)

@@ -93,13 +93,13 @@
                 </p>
                 <div class="search">
                     <form action="{% url 'book:search' %}" method="get">
-                        <input type="text" name="ingredient_name" placeholder="Search by ingredient..." autocomplete="off" spellcheck="true">
-                        <input type="submit" value="Search">
                         <input type="text" class="search-recipe-input" id="search-recipe-input" onkeyup="searchRecipes()" placeholder="Search by name..." name="" aria-label="Search for..." autocomplete="off" spellcheck="true">
-                        <input type="text" hidden="true" class="search-ingredient-input" id="search-ingredient-input" placeholder="Search by ingredients separated by commas..." name="" aria-label="Search for..." autocomplete="off" spellcheck="true">
+                        <input type="text" hidden="true" class="search-ingredient-input" id="search-ingredient-input" placeholder="Search by ingredient..." name="ingredient_name" aria-label="Search for..." autocomplete="off" spellcheck="true">
                         <a href="#" class="search-icon" id="search-icon">
-                        <i class="fa fa-search"></i>
+                            <i class="fa fa-search"></i>
                         </a>
+                        
+                        <input type="submit" value="Search">
                     </form>
                 </div>
               </div>
@@ -125,11 +125,10 @@
                                 </div>
                             </div>
                         {% endfor %}   
-                    {% else %}
+                    {% endif %}
                         <div class="col-lg-12">
                             <h1 id="sorryText" style="color:white; font-weight:700; text-align:center; display:none">No recipes match your search :( </h1>  
                         </div>
-                    {% endif %}
                   </div>
                 </div>
             </div>

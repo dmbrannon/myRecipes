@@ -10,6 +10,7 @@ class Ingredient(models.Model):
 class Recipe(models.Model):
     title = models.CharField(max_length=128)
     source = models.CharField(max_length=256)
+    sourceName = models.CharField(max_length=64, default='Dana')
     steps = models.TextField()
     tries = models.IntegerField(default=0)
     icon = models.ForeignKey(
@@ -31,7 +32,7 @@ class Measurement(models.Model):
     unit = models.CharField(max_length=64)
 
     def __str__(self):
-        return f"{self.qty} {self.unit} {self.ingredient} for {self.recipe}"
+        return f"{self.qty} {self.unit} {self.ingredient}"
 
 class Note(models.Model):
     text = models.TextField()
