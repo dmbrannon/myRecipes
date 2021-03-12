@@ -9,14 +9,14 @@
         <button type="button" class="btn btn-light my-2" id="ingredientButton">Search by ingredient</button>
       </p>
       <div class="search">
-          <form action="{% url 'book:search' %}" method="get">
+          <form action="{% url 'book:search' %}" method="get" id="submit-this">
               <input type="text" class="search-recipe-input" id="search-recipe-input" onkeyup="searchRecipes()" placeholder="Search by name..." name="" aria-label="Search for..." autocomplete="off" spellcheck="true">
               <input type="text" hidden="true" class="search-ingredient-input" id="search-ingredient-input" placeholder="Search by ingredient..." name="ingredient_name" aria-label="Search for..." autocomplete="off" spellcheck="true">
-              <a href="#" class="search-icon" id="search-icon">
-                  <i class="fa fa-search"></i>
-              </a>
+             
               
-              <input type="submit" value="Search">
+              <button class="search-icon" type="submit" value="submit" id="search-icon">
+                <i class="fa fa-search"></i>
+              </button>
           </form>
       </div>
     </div>

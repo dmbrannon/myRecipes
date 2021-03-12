@@ -113,7 +113,14 @@ a:hover, a:focus {
   font-size: 10px;
   bottom: 30px;
   position: relative;
-  border-radius: 5px
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="button"]:focus {
+  outline: none;
 }
 
 .search-icon:hover {
