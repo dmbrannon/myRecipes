@@ -12,7 +12,7 @@ class Recipe(models.Model):
     source = models.CharField(max_length=256)
     sourceName = models.CharField(max_length=64, default='Dana')
     steps = models.TextField()
-    tries = models.IntegerField(default=0)
+    tries = models.IntegerField(default=1)
     icon = models.ForeignKey(
         'Icon',
         on_delete=models.CASCADE,
