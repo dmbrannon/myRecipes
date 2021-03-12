@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 
 class Ingredient(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, unique=True)
 
     def __str__(self):
         return self.name

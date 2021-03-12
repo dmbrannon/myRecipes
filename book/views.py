@@ -86,7 +86,7 @@ def detail(request, recipe_id):
     
     # Steps looks like "Boil Water.  Set oven to 450.  Chop all vegetables."
     steps = recipe.steps
-    steps_listed = steps.split("  ")
+    steps_listed = steps.split("+")
     context = {
         'recipe': recipe,
         'steps': steps_listed,
