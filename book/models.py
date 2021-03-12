@@ -44,5 +44,8 @@ class Note(models.Model):
     date_modified = models.DateField(auto_now=True)
 
 class Icon(models.Model):
+    name = models.CharField(max_length=64, unique=True)
     code = models.CharField(max_length=8)
-
+    
+    def __str__(self):
+        return self.name

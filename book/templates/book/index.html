@@ -12,8 +12,6 @@
           <form action="{% url 'book:search' %}" method="get" id="submit-this">
               <input type="text" class="search-recipe-input" id="search-recipe-input" onkeyup="searchRecipes()" placeholder="Search by name..." name="" aria-label="Search for..." autocomplete="off" spellcheck="true">
               <input type="text" hidden="true" class="search-ingredient-input" id="search-ingredient-input" placeholder="Search by ingredient..." name="ingredient_name" aria-label="Search for..." autocomplete="off" spellcheck="true">
-             
-              
               <button class="search-icon" type="submit" value="submit" id="search-icon">
                 <i class="fa fa-search"></i>
               </button>
@@ -34,7 +32,7 @@
                       <div class="card mb-4 box-shadow">
                           <a href="{% url 'book:detail' recipe.id %}">
                           <div class="card-body">
-                              <div class="mr-3" style="font-size:20px;float:left">&#128031</div>
+                              <div class="mr-3" style="font-size:20px;float:left">&#{{ recipe.icon.code }}</div>
                               <span style="font-size:1.25em">{{ recipe.title }}</span>
                               <small class="text-muted float-right mt-2 mb-2">&#11088 {{ recipe.tries }}</small> 
                           </div>
