@@ -32,7 +32,9 @@
         <div class="card">
             <h4 class="card-header">Notes</h4>
             <div class="card-body">
-              <p class="card-text"><b>10/31/20: </b>Doubled the meat ball recipe and got around 20 meatballs, froze half.</p>
+              {% for note in notes %}
+                <p class="card-text"><b>{{ note.date_created }}: </b>{{ note.text }}</p>
+              {% endfor %}
               <a href="#" class="btn btn-primary">Try Recipe &#11088</a>
             </div>
           </div>
