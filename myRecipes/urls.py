@@ -21,6 +21,6 @@ urlpatterns = [
     # the route is the end of the url (minus GET/POST params)
     # django calls the specified view function with an HttpRequest obj and captured values from url as args
     # name is so we can refer to it in templates in our project
-    path('book/', include('book.urls')), # include lets us reference the other url modules! use it for everything 
+    path('', include('book.urls')), # include lets us reference the other url modules! use it for everything 
     path('admin/', admin.site.urls),
 ]
