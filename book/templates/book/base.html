@@ -79,6 +79,9 @@
                   <span class="navbar-toggler-icon"></span>
                 </button>
               </div>
+              {% if user.is_authenticated %}
+                <span class="float-right" style="color:white;font-style:italic">Hi, Dana</span>
+              {% endif %}
             </div>
         </header>
 
