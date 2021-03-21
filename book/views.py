@@ -1,9 +1,11 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 # from django.template import loader
 from django.urls import reverse
 from django.views import generic
+from django.shortcuts import redirect
+from django.contrib import messages
 
 from .models import Recipe, Ingredient
 
@@ -75,23 +77,36 @@ def search(request):
     #return HttpResponse(template.render(context, request))
     return render(request, 'book/search.html', context)
 
-def detail(request, recipe_id):
-    '''try:
-        recipe = Recipe.objects.get(pk=recipe_id)
-    except Recipe.DoesNotExist:
-        raise Http404("Recipe does not exist.")'''
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
-    ingredients_list = recipe.ingredients.through.objects.all().filter(recipe=recipe)
-    notes_list = recipe.note_set.all()
-    
-    # Steps looks like "Boil Water.+Set oven to 450.+Chop all vegetables."
-    steps = recipe.steps
-    steps_listed = steps.split("+")
-    context = {
-        'recipe': recipe,
-        'steps': steps_listed,
-        'ingredients': ingredients_list,
-        'notes': notes_list,
-    }
-    
-    return render(request, 'book/detail.html', context)
+class RecipeDetailView(DetailView):
+    """ Show details of recipe and handle 'Try Recipe' button submission. """
+    model = Recipe
+
+    def get_context_data(self, **kwargs):
+        context = super(RecipeDetailView, self).get_context_data(**kwargs)
+
+        recipe = self.object
+        ingredients_list = recipe.ingredients.through.objects.all().filter(recipe=recipe)
+        notes_list = recipe.note_set.all()
+
+        # Steps looks like "Boil Water.+Set oven to 450.+Chop all vegetables."
+        steps = recipe.steps
+        steps_listed = steps.split("+")
+        context = {
+            'recipe': recipe,
+            'steps': steps_listed,
+            'ingredients': ingredients_list,
+            'notes': notes_list,
+        }
+        return context
+
+    # If Try Recipe button is pressed, update recipe tries and return to home page with success
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        #form = self.get_form()
+        messages.success(request, f'{self.object.title} recipe has been tried!')
+        self.object.tries += 1
+        self.object.save()
+        return redirect('book:index')
+
+
+
