@@ -12,7 +12,7 @@
           <form action="{% url 'book:search' %}" method="get" id="submit-this">
               <input type="text" class="search-recipe-input" id="search-recipe-input" onkeyup="searchRecipes()" placeholder="Search by name..." name="" aria-label="Search for..." autocomplete="off" spellcheck="true">
               <input type="text" hidden="true" class="search-ingredient-input" id="search-ingredient-input" placeholder="Search by ingredient..." name="ingredient_name" aria-label="Search for..." autocomplete="off" spellcheck="true">
-              <button class="search-icon" type="submit" value="submit" id="search-icon">
+              <button class="search-icon" type="submit" value="submit" id="search-icon" hidden="true">
                 <i class="fa fa-search"></i>
               </button>
           </form>
@@ -62,6 +62,7 @@
       document.getElementById("ingredientButton").addEventListener("click", function(){
       document.getElementById("nameButton").className = "btn btn-light my-2";
       document.getElementById("ingredientButton").className = "btn btn-success my-2";
+      document.getElementById("search-icon").hidden = false;
       document.getElementById("search-icon").style.backgroundColor = "#28a745";
       document.getElementById("search-ingredient-input").hidden = false;
       document.getElementById("search-recipe-input").hidden = true;
@@ -69,7 +70,7 @@
       document.getElementById("nameButton").addEventListener("click", function(){
       document.getElementById("ingredientButton").className = "btn btn-light my-2";
       document.getElementById("nameButton").className = "btn btn-primary my-2";
-      document.getElementById("search-icon").style.backgroundColor = "#007bff";
+      document.getElementById("search-icon").hidden = true;
       document.getElementById("search-recipe-input").hidden = false;
       document.getElementById("search-ingredient-input").hidden = true;
       });
