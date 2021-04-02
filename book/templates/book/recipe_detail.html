@@ -32,9 +32,13 @@
         <div class="card">
             <h4 class="card-header">Notes</h4>
             <div class="card-body">
-              {% for note in notes %}
-                <p class="card-text"><b>{{ note.date_created }}: </b>{{ note.text }}</p>
-              {% endfor %}
+              {% if notes %}
+                {% for note in notes %}
+                  <p class="card-text"><b>{{ note.date_created }}: </b>{{ note.text }}</p>
+                {% endfor %}
+              {% else %}
+                <p>Dana hasn't written any notes for this recipe yet.</p>
+              {% endif %}
               {% if user.is_authenticated %}
                 <form method="POST">
                   {% csrf_token %}
