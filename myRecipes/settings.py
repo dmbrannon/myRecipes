@@ -126,3 +126,5 @@ STATIC_URL = '/static/'
 # Dana's Stuff Below
 import mimetypes
 mimetypes.add_type("text/css", ".css", True)
+
+django_heroku.settings(locals())
