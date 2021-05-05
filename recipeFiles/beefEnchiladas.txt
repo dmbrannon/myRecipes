@@ -1,0 +1,16 @@
+Title:Beef Enchiladas
+Source Name:Gimme Some Oven
+Source URL:https://www.gimmesomeoven.com/beef-enchiladas-recipe/
+
+Icon Name:Burrito
+Icon Code:127791
+
+Steps:
+-Do step 1.
+-Do step 2.
+-Do step 3.
+
+Ingredients:
+-lean ground beef: 1.5 lbs
+-white onion, diced: 1
+-green chiles: 1 4oz can

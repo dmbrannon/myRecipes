@@ -1,0 +1,15 @@
+Title:Test Recipe
+Source Name:Dana
+Source URL:
+
+Icon Name:Test
+Icon Code:123456
+
+Steps:
+-Do step 1.
+-Do step 2.
+-Do step 3.
+
+Ingredients:
+-2 cups test
+-1/2 tsp test
