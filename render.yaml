@@ -11,6 +11,8 @@ services:
     envVars:
       - key: DEBUG # Imported from Heroku app
         value: True
+      - key: SECRET_KEY
+        sync: false # will not be copied to preview environments
       - key: DATABASE_URL # Render PostgreSQL database
         fromDatabase:
           name: postgresql-horizontal-25722
